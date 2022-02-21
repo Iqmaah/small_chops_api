@@ -1,0 +1,34 @@
+require("dotenv").config
+const express = require('express')
+const app = express()
+const{v4:uuidv4} = require ('uuid')
+const bodyParser = require ("body-parser")
+const displayRoutes = require('express-routemap')
+const mySqlConnection = require('./config/mysql')
+const userRoutes = require('./routes.js/users.routes')
+const paymentRoutes = require('./routes.js/payment.routes')
+const packageRoutes = require('./routes.js/packages.routes')
+const orderRoutes = require('./routes.js/orders.routes')
+
+
+const port = process.env.PORT
+app.use(bodyParser.json())
+
+app.use(userRoutes)
+app.use(paymentRoutes)
+app.use(packageRoutes)
+app.use(orderRoutes)
+
+app.listen(port, () => {
+    console.log(`listeneing on ${port}`)
+    displayRoutes(app)
+})
+
+mySqlConnection.connect(err => {
+    if (err) throw err.stack
+    console.log('successfully connected:' , mySqlConnection.threadId)
+
+})
+
+
+
