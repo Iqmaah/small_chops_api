@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const packagesControllers = require('../controllers.js/packages.controllers')
+const packagesControllers = require('../controllers/packages.controllers')
 
 
 

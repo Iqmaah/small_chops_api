@@ -5,10 +5,10 @@ const{v4:uuidv4} = require ('uuid')
 const bodyParser = require ("body-parser")
 const displayRoutes = require('express-routemap')
 const mySqlConnection = require('./config/mysql')
-const userRoutes = require('./routes.js/users.routes')
-const paymentRoutes = require('./routes.js/payment.routes')
-const packageRoutes = require('./routes.js/packages.routes')
-const orderRoutes = require('./routes.js/orders.routes')
+const userRoutes = require('./routes/users.routes')
+const paymentRoutes = require('./routes/payment.routes')
+const packageRoutes = require('./routes/packages.routes')
+const orderRoutes = require('./routes/orders.routes')
 
 
 const port = process.env.PORT
