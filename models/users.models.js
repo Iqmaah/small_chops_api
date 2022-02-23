@@ -9,7 +9,7 @@ const mysqlConnection = require('../config/mysql')
 const newUser =   async ( fullname, email, phone_number, address, password, customer_id) => {
     return new Promise( (resolve, reject) => {
         mysqlConnection.query({
-            sql: `Insert into users(fullname, email, phone_number, address, password, customer_id)values(?,?,?,?,?,?)`,
+            sql: `Insert into users(fullname, email, phone_number, address, hashedPassword, customer_id)values(?,?,?,?,?,?)`,
             values: [fullname, email, phone_number, address, password, customer_id]
         }
          ,  (err, results, fields) => {

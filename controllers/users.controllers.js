@@ -4,9 +4,28 @@ const Joi = require('Joi')
 const{ v4: uuidv4 } = require('uuid')
 const userModel = require('../models/users.models')
 const msgClass = require('../errors/error')
+const bcrypt = require('bcrypt')
+const saltRounds = 10
 
 
 
+
+const hashMyPassword = (password) => {
+    
+    return new Promise((resolve, reject) => {
+
+        bcrypt.genSalt(saltRounds,  (err, salt)=> {
+            bcrypt.hash(password, saltRounds,  (err, hash)=> {
+                if (err) {
+                    reject(err)
+                }
+                resolve(hash)
+            });
+        });
+ 
+
+    })
+}
 
 
 
@@ -34,14 +53,23 @@ const createNewUser = async (req,res) => {
     }
     console.log("got here 1")
 
+    // const  hashedPassword =  await hashMyPassword(password)
+
     userModel.checkUser(email,phone_number)   
     .then(checkUserResult => {
         if (checkUserResult != ""){
             throw new Error(msgClass.CustomerExist)
         }
 
-        return userModel.newUser(fullname, email, phone_number, address, password, customer_id)
+        
+        return hashMyPassword(password)
     })
+    .then(reponseFromHashMyPassword => {
+    // req.body.password = reponseFromHashMyPassword
+
+    return userModel.newUser(fullname, email, phone_number, address, reponseFromHashMyPassword, customer_id)
+    })
+
     .then(newUserResult => {
         if(newUserResult) {
         res.status(200).send({
@@ -52,7 +80,6 @@ const createNewUser = async (req,res) => {
     }
     })  
         
-    
     .catch(checkUserErr => {
         console.log("here:", checkUserErr)
         res.status(400).send({
