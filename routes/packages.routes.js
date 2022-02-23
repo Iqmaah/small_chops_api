@@ -5,9 +5,9 @@ const packagesControllers = require('../controllers/packages.controllers')
 
 
 router.post('/packages', packagesControllers.createNewPackage)
-router.get('/allPackages/:', packagesControllers.getAllPackages)
-router.get('/onePackage/:package_id', packagesControllers.getPackage)
-router.put('/onePackage/:package_id', packagesControllers.updatePackage)
+router.get('/all-Packages/', packagesControllers.getAllPackages)
+router.get('/one-Package/:package_id', packagesControllers.getPackage)
+router.put('/one-Package/:package_id/:item_name', packagesControllers.updatePackage)
 
 
 

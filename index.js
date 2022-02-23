@@ -9,11 +9,13 @@ const userRoutes = require('./routes/users.routes')
 const paymentRoutes = require('./routes/payment.routes')
 const packageRoutes = require('./routes/packages.routes')
 const orderRoutes = require('./routes/orders.routes')
+const morgan = require('morgan')
 
 
 const port = process.env.PORT
 app.use(bodyParser.json())
 
+app.use(morgan('combined'))
 app.use(userRoutes)
 app.use(paymentRoutes)
 app.use(packageRoutes)
